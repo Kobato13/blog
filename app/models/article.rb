@@ -14,6 +14,8 @@ class Article < ApplicationRecord
 
   validates :title, :author, :content, presence: true
 
+  has_many :comments
+
   def full_description
     #errors.add(:base, "something")
     "#{title} - #{author}"

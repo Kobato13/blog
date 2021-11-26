@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   
-  before_action :set_article, only: [:edit, :update, :destroy]
+  before_action :set_article, only: [:edit, :update, :destroy, :show]
 
   def index
     #articles = Article.all
@@ -9,6 +9,11 @@ class ArticlesController < ApplicationController
     @articles = Article.all
 
     #render 'two'
+  end
+
+  def show
+    @comments = @article.comments.where.not(id: nil)
+    @comment = @article.comments.build
   end
 
   def new 
@@ -62,11 +67,6 @@ class ArticlesController < ApplicationController
   def article_params
     params.require(:article).permit(:title, :author, :content)
   end
-
-  
-  # def show
-  
-  # end
 
   # def two
   

@@ -1,0 +1,13 @@
+= form_with model: [@article, @comment] do |f|
+  = f.label :content
+  = f.text_area :content
+
+  %br
+
+  = f.submit
+
+  - if @comment.errors.any?
+    %h2{:class => "text-red-600"} Errors: 
+    %ul{:class => "text-red-600"}
+      - @comment.errors.full_messages.each do |message|
+        %li= message
