@@ -20,6 +20,24 @@
           = link_to article_comment_path(@article.id, comment.id), method: :delete, data: { confirm: "Are you sure?" } do
             Delete
 
-
 = render 'comments/form'
+
+%hr
+
+%table
+  %thead
+    %tr
+      %th Categories
+  %tbody
+    - @categories.each do |category|
+      %tr
+        %td= category.name
+
+
+%br
+%br
+= link_to articles_path do
+  Back to index
+
+
 

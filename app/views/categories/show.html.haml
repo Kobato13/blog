@@ -1,0 +1,20 @@
+%h1= @category.name
+
+%hr
+
+%table
+  %thead
+    %tr
+      %th Articles
+  %tbody
+    - @articles.each do |article|
+      %tr
+        %td
+          %strong= article.title
+      %tr
+        %td= article.content
+
+%br
+%br
+= link_to categories_path do
+  Back to index

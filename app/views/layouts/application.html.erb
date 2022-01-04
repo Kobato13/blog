@@ -11,6 +11,14 @@
   </head>
 
   <body>
+
+    <nav>
+      <%= link_to "Articles", articles_path %>
+      <%= link_to "Categories", categories_path %>
+      <%= link_to "Tags", tags_path %>
+    </nav>
+
+
     <%= flash[:notice] %>
     <%= flash[:errors] %>
 

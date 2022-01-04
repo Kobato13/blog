@@ -14,10 +14,13 @@ class ArticlesController < ApplicationController
   def show
     @comments = @article.comments.where.not(id: nil)
     @comment = @article.comments.build
+
+    @categories = @article.categories.where.not(id: nil)
   end
 
   def new 
     @article = Article.new
+    @article.categories.build
   end
 
   def create
@@ -65,7 +68,8 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:title, :author, :content)
+    params.require(:article).permit(
+      :title, :author, :content, categories_attributes: [:id, :name])
   end
 
   # def two

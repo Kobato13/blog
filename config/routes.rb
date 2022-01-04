@@ -3,7 +3,18 @@ Rails.application.routes.draw do
   
   resources :articles do
     resources :comments
+    resources :categories
+    resources :tags
   end
+
+  resources :categories do
+    resources :articles
+  end
+
+  resources :tags do
+    resources :articles
+  end
+
 
   # get '/articles' => 'articles#index'
 

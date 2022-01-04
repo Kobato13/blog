@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_25_115830) do
+ActiveRecord::Schema.define(version: 2021_12_07_101520) do
+
+  create_table "advertisements", force: :cascade do |t|
+    t.string "name"
+    t.string "company"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "articles", force: :cascade do |t|
     t.string "title"
@@ -18,6 +25,24 @@ ActiveRecord::Schema.define(version: 2021_11_25_115830) do
     t.text "content"
     t.boolean "published", default: false
     t.datetime "published_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "articles_categories", id: false, force: :cascade do |t|
+    t.integer "article_id", null: false
+    t.integer "category_id", null: false
+  end
+
+  create_table "articles_tags", id: false, force: :cascade do |t|
+    t.integer "article_id", null: false
+    t.integer "tag_id", null: false
+    t.index ["article_id", "tag_id"], name: "index_articles_tags_on_article_id_and_tag_id"
+    t.index ["tag_id", "article_id"], name: "index_articles_tags_on_tag_id_and_article_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -30,4 +55,22 @@ ActiveRecord::Schema.define(version: 2021_11_25_115830) do
     t.index ["article_id"], name: "index_comments_on_article_id"
   end
 
+  create_table "sections", force: :cascade do |t|
+    t.integer "article_id", null: false
+    t.integer "advertisement_id", null: false
+    t.string "location"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["advertisement_id"], name: "index_sections_on_advertisement_id"
+    t.index ["article_id"], name: "index_sections_on_article_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "sections", "advertisements"
+  add_foreign_key "sections", "articles"
 end

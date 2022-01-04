@@ -28,24 +28,28 @@
 -# <% end %>
 
 = form_with model: @article do |f|
+
+  - if @article.errors.any?
+    %h2Errors: 
+      %ul
+        - @article.errors.full_messages.each do |message|
+          %li= message
+
   = f.label :title
   = f.text_field :title
-
-  %br/
-
+  %br
   = f.label :author
   = f.text_field :author
-
-  %br/
-
+  %br
   = f.label :content
   = f.text_area :content
+  %br
+  = f.fields_for :categories do |category_form|
+    = category_form.label :name, 'Category:'
+    = category_form.text_field :name
 
-  = if f.object.errors[:content].present?
-    %span
-    = f.object_error[:content].to_sentence
-
-  %br/
+    = category_form.hidden_field :id, value: category_form.object.id
+  %br
 
   = f.submit
 
